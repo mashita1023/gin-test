@@ -4,7 +4,7 @@ services:
   api:
     container_name: api
     build:
-      context: ./go
+      context: ./api
     ports:
       - 3000:3000
     links:
@@ -12,7 +12,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ./go:/go/src/github.com/NUTFes/shift-app
+      - ./api:/go/src/github.com/NUTFes/shift-app
     environment:
       GO111MODULE: "on"
 
