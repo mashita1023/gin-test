@@ -1,14 +1,19 @@
 package main
 
 import (
-	controllers "github.com/NUTFes/shift-app/controllers"
+  "fmt"
+	"os"
+
+  controllers "github.com/NUTFes/shift-app/controllers"
 	"github.com/NUTFes/shift-app/models"
+	"github.com/NUTFes/shift-app/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
 
+  mw := middlewares.SetupFirebase()
 	db := models.SetupGorm()
 
 	r.Use(func(c *gin.Context){
@@ -16,6 +21,8 @@ func main() {
 		c.Next()
 	})
 
+  fmt.Printf("%v\n", true)
+  fmt.Printf("%v\n", os.Getenv("FIRE_BASE_TYPE"))
 	r.GET("/books", controllers.FindBooks)
 	r.POST("/books", controllers.CreateBook)
 	r.GET("/books/:id", controllers.FindBook)

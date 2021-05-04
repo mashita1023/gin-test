@@ -1,6 +1,7 @@
 package controller
 
 import (
+  "os"
 	models "github.com/NUTFes/shift-app/models"
 	"net/http"
 	"github.com/gin-gonic/gin"
@@ -10,10 +11,11 @@ import (
 func FindBooks(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 
+  path := os.Getenv("FIREBASE_TYPE")
 	var books []models.Book
 	db.Find(&books)
 
-	c.JSON(http.StatusOK, gin.H{"data": books})
+	c.JSON(http.StatusOK, gin.H{"data": books, "test": path})
 }
 
 func CreateBook(c *gin.Context) {
